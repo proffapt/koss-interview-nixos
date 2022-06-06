@@ -1,13 +1,14 @@
 ## These are the links, which helped me to get a grasp on nixos
 
 ### Articles
-* [ ] https://xeiaso.net/talks/nixos-pain-2021-11-10
+* [x] https://xeiaso.net/talks/nixos-pain-2021-11-10
 * [ ] https://notes.yukiisbo.red/
 	* [x] https://notes.yukiisbo.red/posts/2021/07/Spice_up_with_Nix_Scripts.html
 	* [ ] https://notes.yukiisbo.red/posts/2021/08/Spice_up_with_Nix_Shells.html
 	* [x] https://notes.yukiisbo.red/posts/2021/09/Spice_up_with_Nix_Traditional_Software_Deployment.html
 	* [ ] https://notes.yukiisbo.red/posts/2022/01/Spice_up_with_Nix_Functional_Software_Deployment.html
 * [ ] https://nixos.org/guides/how-nix-works.html
+* [ ] https://serokell.io/blog/what-is-nix
 * [ ] https://nixos.org/guides/nix-pills/
 * [x] NixOS manuals
 	* [x] https://nixos.org/manual/nixpkgs/stable/

@@ -8,7 +8,7 @@
 
 * The Nix OS
 	- Read out the stuff from wiki
-	Will look in detail for these two points in section 4, till then let's discuss the point 1
+	Point 2 will be better understood after we are done with understanding the nix language
 	- Instant runtime enviroment
 		- line 1: declaring which interpreter to use for the script
 		- line 2: telling the nix-shell which interpreter to use further.. and what packages will be needed
