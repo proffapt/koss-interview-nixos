@@ -19,7 +19,6 @@
 		(So much of elaborative data to enter from the article https://notes.yukiisbo.red/posts/2021/09/Spice_up_with_Nix_Traditional_Software_Deployment.html)
 		So these were elaborative problems.. how does nix solve all of these?.. shall look into this when we will be discussing the working of nix
 
-
 * The Nix Language
 	- Gibberish from wikipedia
 		- Elaborate the three terms
@@ -54,3 +53,15 @@
 		* rec
 	- About repl
 
+* Creating own package using nix
+	https://notes.yukiisbo.red/posts/2022/01/Spice_up_with_Nix_Functional_Software_Deployment.html --> creation and conceptualisation
+
+* What does it do under the hood
+	- We have already seen the creation and working of nix packages in the previous section, let's look into nix a bit more deeper
+	- https://notes.yukiisbo.red/posts/2021/08/Spice_up_with_Nix_Shells.html --> before niv
+	- https://serokell.io/blog/what-is-nix
+	- https://nixos.org/guides/how-nix-works.html
+
+* Flakes
+	- https://notes.yukiisbo.red/posts/2021/08/Spice_up_with_Nix_Shells.html --> idea from niv
+	- https://www.tweag.io/blog/2020-05-25-flakes/
