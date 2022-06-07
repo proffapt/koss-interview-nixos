@@ -145,6 +145,21 @@
 * Flakes
 	- Nixpkgs is a nix channel which is similar to the list of repositories that can be found in other package managers (ex. /etc/apt/sources.list in Debian/Ubuntu).
 	  This is all well and good but there’s you will encounter the following issue: Each Nix user may have different versions nixpkgs present. 
+	- Slow evaluation
+		Nix uses a simple, interpreted, purely functional language to describe package dependency graphs and NixOS system configurations. 
+		So to get any information about those things, Nix first needs to evaluate a substantial Nix program. This involves parsing potentially 
+		thousands of .nix files and running a Turing-complete language.
+		Evaluating individual packages or configurations can also be slow -> as shown in output of second command.
+	- Creating your own flake
+		Add flake.nix file to your package folder and done.
+		What does that file contain, let's have a look into that
+	- Flake output
+		> Flakes can provide arbitrary Nix values, such as packages, 
+		NixOS modules or library functions. These are called its outputs. 
+		We can see the outputs of a flake as shown on the left image.
+	- Flake metadata
+		> flakes have to declare their dependencies explicitly, and these dependencies have to be locked to specific revisions.
+		In order to do so, flake.nix file declares an explicit dependency on Nixpkgs, which is also a flake.
 	- Flake.nix
 		The description attribute is a one-line description shown by nix flake metadata.
 		The inputs attribute specifies other flakes that this flake depends on. These are fetched by Nix and passed as arguments to the outputs function.
@@ -156,3 +171,10 @@
 		You may have noticed that the dependency specification github:NixOS/nixpkgs/nixos-20.03 is imprecise: it says that we want to use the nixos-20.03 branch of 
 		Nixpkgs, but doesn’t say which Git revision. This seems bad for reproducibility. However, when we ran nix build, Nix automatically generated a lock file that 
 		precisely states which revision of nixpkgs to use
+	- Hermatic evaluation
+		
+	- 
+		Any subsequent build of this flake will use the version of nixpkgs recorded in the lock file. 
+		If you add new inputs to flake.nix, when you run any command such as nix build, Nix will 
+		automatically add corresponding locks to flake.lock. However, it won’t replace existing locks. 
+		If you want to update a locked input to the latest version, you need to ask for it:
