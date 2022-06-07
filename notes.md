@@ -115,10 +115,44 @@
 				Instead, it is our Nix file which defines the build process that does all of the legwork to make this happen.
 				>> The Python wrapper is done by buildPythonApplication function from the Nix package collection (nixpkgs) which we used to build our package.
 				>> The Qt 5 wrapper is done by wrapQtAppsHook component from nixpkgs which we included as a dependency.
-		- image 5: 
-	- https://notes.yukiisbo.red/posts/2022/01/Spice_up_with_Nix_Functional_Software_Deployment.html --> conceptualisation
-	- https://serokell.io/blog/what-is-nix
+	- Diving deep into Instatiation and Realization
+		First, Nix expressions are translated to derivations in a process called “instatiation”. 
+	 	- image:
+			It’s a rather massive JSON file. Let’s break it down. 
+			- The outputs
+				The outputs section defines the deterministic path of the output of this derivation. The process is simply called “building”.
+				Nix builds the derivation and then store its outputs to the path defined here. 
+			- The inputs
+				* InputSrcs defines the path of the source code within the Nix store and a builder script which will be executed. 
+				* InputDrvs defines the inputs or dependencies to build this derivation.
+				  It mentions other components via their respective derivations (note the .drv prefix).
+				  You might be wondering why some have out, dev, lib or even multiple of them.
+				  That’s because derivations can have multiple outputs and the list with out, dev tells Nix which outputs of the derivations to use.
+				  You can see how it compares by running nix show-derivation /nix/store/457yxakhv0lc3df8jlb9cz0q8fk44lns-qtbase-5.15.2.drv but I won’t be getting into it in here. 
+		    - The enviroment variables
+					Here we see system, builder, and args, what’s up with these?
+					You might be able to guess on your own but here’s an explaination:
+					system defines which exact architecture/operating system this derivation is for.
+					In the early days of Nix, builder was originally used to defined the script used to build the derivation.
+					This script was made along with the expression but this was changed in later versions to use a generic builder script which we’ll see later.
+					Nowadays, it always points to the bash shell interpreter.
+					args defines the command arguments to pass to the builder. Because of the change mentioned before, this simply tells the bash interpreter to execute the generic builder script.
+					env defines all of the environment variable that will be setup for the builder.
+					To ensure reproducibility, before running the build script, Nix prepares a clean slate which involves removing all environment variables.
+			- Section from package script(post patch prefixup)
+				Basically we did by ourselves for mpv what nix did for other packages.. that is specifying the exact location of packages..
 
 * Flakes
-	- https://notes.yukiisbo.red/posts/2021/08/Spice_up_with_Nix_Shells.html --> idea from niv
-	- https://www.tweag.io/blog/2020-05-25-flakes/
+	- Nixpkgs is a nix channel which is similar to the list of repositories that can be found in other package managers (ex. /etc/apt/sources.list in Debian/Ubuntu).
+	  This is all well and good but there’s you will encounter the following issue: Each Nix user may have different versions nixpkgs present. 
+	- Flake.nix
+		The description attribute is a one-line description shown by nix flake metadata.
+		The inputs attribute specifies other flakes that this flake depends on. These are fetched by Nix and passed as arguments to the outputs function.
+		The outputs attribute is the heart of the flake: it’s a function that produces an attribute set. The function arguments are the flakes specified in inputs.
+		The self argument denotes this flake. Its primarily useful for referring to the source of the flake (as in src = self;) or to other outputs (e.g. self.defaultPackage.x86_64-linux).
+		The attributes produced by outputs are arbitrary values, except that (as we saw above) there are some standard outputs such as defaultPackage.${system}.
+		Every flake has some metadata, such as self.lastModifiedDate, which is used to generate a version string like hello-20191015.
+	- Flake.lock
+		You may have noticed that the dependency specification github:NixOS/nixpkgs/nixos-20.03 is imprecise: it says that we want to use the nixos-20.03 branch of 
+		Nixpkgs, but doesn’t say which Git revision. This seems bad for reproducibility. However, when we ran nix build, Nix automatically generated a lock file that 
+		precisely states which revision of nixpkgs to use
