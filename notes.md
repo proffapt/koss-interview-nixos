@@ -64,11 +64,18 @@
 	- About repl
 
 * Creating own package using nix
-	https://notes.yukiisbo.red/posts/2022/01/Spice_up_with_Nix_Functional_Software_Deployment.html --> creation 
+	- nix-build command
+		* It’s built and the resulting component is stored inside /nix/store/y1aimywh5ff57pv2azg705hlkcciy2dn-youtube-launcher-0.1 as indicated by the last line of nix-build.
 
 * What does it do under the hood
 	- We have already seen the creation and working of nix packages in the previous section, let's look into nix a bit more deeper
 	- Elaborate on the hashing method and reason, which is to have multiple uncompaitible version of same thing in once place /nix/store
+	  Do you recall the issues with the simple Python script we made?
+		The problem with different systems having software installed in different places.
+		The problem with different versions or variants of the same software.
+	  Nix solves the issues mentioned above by storing components in a deterministic path which are prefixed with a cryptographic hash.
+	  The hash itself is generated based on the inputs (i.e source code, build flags, dependencies) used to build the component.
+	  If any of the inputs changed (ex. one of its dependencies was updated), the hash will be different which will result in a different path. 
 	- What does shell.nix do?
 		 - You’re essentially giving Nix a shopping list of what you need in your shell environment. 
 	1) Reading it, you might think this is how you define imports but actually, this is how you define lambda functions in Nix.
