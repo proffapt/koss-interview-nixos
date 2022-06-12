@@ -1,4 +1,5 @@
 ## NixOS: KOSS Teaching Task
+Problem statement can be found here: [NixOS-KOSS-selection task](https://github.com/kossiitkgp/KOSS-Selection-Tasks/blob/master/Teaching/Linux/NixOS.md)
 
 This repository contains the presentation and links to various sources I preferred for the teaching task given by KOSS( Kharagpur(IIT-KGP) Open Source Society ) for the team-addition interview in the session 2021-2022.
 
