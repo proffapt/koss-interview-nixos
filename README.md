@@ -7,7 +7,7 @@ This repository contains the presentation and links to various sources I preferr
 The original presentation was created in [keynote](https://www.apple.com/in/keynote/), having an extension of `.key`, which might not be supported by other
 presentation softwares, thus for windows(and hence for every other distro belonging to the category of *nix) it has been converted to `.ppt`.
 
-The presentation with `.key` extension was converted by [clounconvert](https://cloudconvert.com/pages-to-docx). 
+The presentation with `.key` extension was converted by [cloudconvert](https://cloudconvert.com/pages-to-docx). 
 
 There is quite a good possibility that you might not be seeing the original version of the presentation, possible reasons can be:
   * You don't have the fonts used in the presentation installed on your system.
